@@ -10,6 +10,7 @@ include $(MKF_COMMON)/commands.mk
 include $(MKF_COMMON)/help.mk
 .DEFAULT_GOAL := help
 
-include $(MKF_COMMON)/dep.mk
+include $(MKF_COMMON)/prepare.mk
+include $(MKF_COMMON)/generate.mk
 include $(MKF_COMMON)/test.mk
 include $(MKF_COMMON)/build.mk
