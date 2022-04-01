@@ -1,4 +1,4 @@
-has-command = $(if $(shell which $(1)),$(1),$(2))
+has-command = $(if $(shell type -P $(1)),$(1),$(2))
 
 need-command = $(if $(call has-command,$(1)),$(1),\
 	$(call log,error,"missing $(1) in PATH (run make install)"))

@@ -1,4 +1,4 @@
-SHELL = zsh
+SHELL = bash
 
 MKF_PREFIX ?= mkf
 MKF_COMMON ?= $(MKF_PREFIX)/common
