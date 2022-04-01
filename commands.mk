@@ -1,5 +1,3 @@
-include $(MKF_COMMON)/log.mk
-
 has-command = $(if $(shell which $(1)),$(1),$(2))
 
 need-command = $(if $(call has-command,$(1)),$(1),\

@@ -1,5 +1,3 @@
-include $(MKF_COMMON)/commands.mk
-
 PRETTIER = $(call need-command,prettier)
 SPONGE = $(call need-command,sponge)
 
