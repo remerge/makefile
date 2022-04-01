@@ -11,10 +11,7 @@ package "moreutils"
 package "pastel" "https://github.com/sharkdp/pastel/releases/download/v0.8.1/pastel_0.8.1_amd64.deb"
 package "sed"
 package "shellcheck"
-
-# package "shfmt"
-curl -fsSLo /usr/local/bin/shfmt https://github.com/mvdan/sh/releases/download/v3.4.3/shfmt_v3.4.3_linux_amd64
-chmod +x /usr/local/bin/shfmt
+package "shfmt" "http://ftp.de.debian.org/debian/pool/main/s/shfmt/shfmt_3.4.3-1_amd64.deb"
 
 # package "prettier"
 package "npm"

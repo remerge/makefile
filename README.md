@@ -41,7 +41,7 @@ make mkf-update
 | gen       | generate.mk:5  | alias for generate                                                                           |
 | generate  | generate.mk:9  | generate documentation, schemas, etc                                                         |
 | fmt       | generate.mk:13 | alias for format                                                                             |
-| format    | generate.mk:17 | format source code to conform to coding style and best practices                             |
-| lint      | test.mk:1      | run code format check, code analysis, security scans, etc                                    |
-| test      | test.mk:2      | run unit and integration tests                                                               |
+| format    | generate.mk:21 | format source code to conform to coding style and best practices                             |
+| lint      | test.mk:4      | run code format check, code analysis, security scans, etc                                    |
+| test      | test.mk:11     | run unit and integration tests                                                               |
 | build     | build.mk:2     | run all build steps and create artifact(s)                                                   |
