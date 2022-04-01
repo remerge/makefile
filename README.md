@@ -36,12 +36,12 @@ make mkf-update
 | distclean | dep.mk:6    | remove all artifacts, caches, dependencies, settings and reset branch to remote (DANGEROUS!) |
 | dep       | dep.mk:19   | alias for install                                                                            |
 | install   | dep.mk:23   | prepare environment and install dependencies for all make targets                            |
-| up        | dep.mk:29   | alias for update                                                                             |
-| update    | dep.mk:33   | update environment and all dependencies to their latest version(s)                           |
+| up        | dep.mk:33   | alias for update                                                                             |
+| update    | dep.mk:37   | update environment and all dependencies to their latest version(s)                           |
 | lint      | test.mk:1   | run code format check, code analysis, security scans, etc                                    |
 | test      | test.mk:2   | run unit and integration tests                                                               |
 | gen       | build.mk:5  | alias for generate                                                                           |
 | generate  | build.mk:9  | generate documentation, schemas, etc                                                         |
 | fmt       | build.mk:13 | alias for format                                                                             |
 | format    | build.mk:17 | format source code to conform to coding style and best practices                             |
-| build     | build.mk:20 | run all build steps and create artifact(s)                                                   |
+| build     | build.mk:21 | run all build steps and create artifact(s)                                                   |

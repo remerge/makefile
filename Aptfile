@@ -1,0 +1,18 @@
+#!/usr/bin/env aptfile
+
+# trigger an apt-get update
+update
+
+package "git"
+package "glow" "https://github.com/charmbracelet/glow/releases/download/v1.4.1/glow_1.4.1_linux_amd64.deb"
+package "grep"
+package "make"
+package "moreutils"
+package "npm"
+package "pastel" "https://github.com/sharkdp/pastel/releases/download/v0.8.1/pastel_0.8.1_amd64.deb"
+package "sed"
+
+echo "Installing prettier"
+npm install -g prettier
+
+echo "All packages installed!"
