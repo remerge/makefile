@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2181,SC2219
+
 set -eo pipefail
 [[ $TRACE ]] && set -x && export TRACE=$TRACE
 
@@ -48,7 +50,7 @@ abs_dirname() {
 
 expand_path() {
     {
-        cd "$(dirname "$1")" 2>/dev/null
+        cd "$(dirname "$1")" 2> /dev/null
         local dirname="$PWD"
         cd "$OLDPWD"
         echo "$dirname/$(basename "$1")"
@@ -129,7 +131,7 @@ log_info() {
 update() {
     [[ $TRACE ]] && set -x
     log_info "Running update"
-    apt-get update >"$TMP_APTFILE_LOGFILE" 2>&1
+    apt-get update > "$TMP_APTFILE_LOGFILE" 2>&1
     [[ $? -eq 0 ]] || log_fail "Failed to run update"
 }
 
@@ -142,7 +144,7 @@ package_from_repo() {
     [[ $TRACE ]] && set -x
     [[ -z $1 ]] && log_fail "Please specify a package to install"
     local pkg="$1"
-    dpkg --force-confnew -s "$pkg" >"$TMP_APTFILE_LOGFILE" 2>&1 && log_info "${APTFILE_CYAN}[OK]${APTFILE_COLOR_OFF} package $pkg" && return 0
+    dpkg --force-confnew -s "$pkg" > "$TMP_APTFILE_LOGFILE" 2>&1 && log_info "${APTFILE_CYAN}[OK]${APTFILE_COLOR_OFF} package $pkg" && return 0
     apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" -qq -y install "$pkg"
     [[ $? -eq 0 ]] || log_fail "${APTFILE_RED}[FAIL]${APTFILE_COLOR_OFF} package $pkg"
     log_info "${APTFILE_GREEN}[NEW]${APTFILE_COLOR_OFF} package $pkg"
@@ -153,40 +155,40 @@ package_from_url() {
     [[ -z $2 ]] && log_fail "Please specify a name and a download url to install the package from"
     local name=$1
     local url=$2
-    if type curl >/dev/null 2>&1; then
+    if type curl > /dev/null 2>&1; then
         local dl_cmd="curl"
         local dl_options="-fsSLo"
-    elif type wget >/dev/null 2>&1; then
+    elif type wget > /dev/null 2>&1; then
         local dl_cmd="wget"
         local dl_options="-qO"
     else
         log_fail "Neither curl nor wget found. Unable to download $url"
     fi
-    dpkg --force-confnew -s "$name" >"$TMP_APTFILE_LOGFILE" 2>&1 && log_info "${APTFILE_CYAN}[OK]${APTFILE_COLOR_OFF} package $name" && return 0
+    dpkg --force-confnew -s "$name" > "$TMP_APTFILE_LOGFILE" 2>&1 && log_info "${APTFILE_CYAN}[OK]${APTFILE_COLOR_OFF} package $name" && return 0
     tempdir=$(mktemp -d)
-    $dl_cmd $dl_options $tempdir/${name}.deb $url &&
+    $dl_cmd $dl_options "$tempdir/${name}.deb" "$url" &&
         apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" -qq -y install "$tempdir/${name}.deb"
     if [[ $? -ne 0 ]]; then
-        rm -r $tempdir
+        rm -r "$tempdir"
         log_fail "${APTFILE_RED}[FAIL]${APTFILE_COLOR_OFF} package $name"
     fi
-    rm -r $tempdir
+    rm -r "$tempdir"
     log_info "${APTFILE_GREEN}[NEW]${APTFILE_COLOR_OFF} package $name"
 }
 
 packagelist() {
     [[ $TRACE ]] && set -x
     [[ -z $1 ]] && log_fail "Please specify at least one package to install"
-    local input_packages=$@
+    local input_packages=$*
     local install_packages=()
     for pkg in $input_packages; do
-        dpkg --force-confnew -s "$pkg" >"$TMP_APTFILE_LOGFILE" 2>&1 && log_info "${APTFILE_CYAN}[OK]${APTFILE_COLOR_OFF} package $pkg" && continue
-        install_packages+=($pkg)
+        dpkg --force-confnew -s "$pkg" > "$TMP_APTFILE_LOGFILE" 2>&1 && log_info "${APTFILE_CYAN}[OK]${APTFILE_COLOR_OFF} package $pkg" && continue
+        install_packages+=("$pkg")
     done
     if [[ ${#install_packages[@]} -gt 0 ]]; then
-        apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" -qq -y install ${install_packages[@]}
-        [[ $? -eq 0 ]] || log_fail "${APTFILE_RED}[FAIL]${APTFILE_COLOR_OFF} packages ${install_packages[@]}"
-        log_info "${APTFILE_GREEN}[NEW]${APTFILE_COLOR_OFF} packages ${install_packages[@]}"
+        apt-get -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confnew" -qq -y install "${install_packages[@]}"
+        [[ $? -eq 0 ]] || log_fail "${APTFILE_RED}[FAIL]${APTFILE_COLOR_OFF} packages ${install_packages[*]}"
+        log_info "${APTFILE_GREEN}[NEW]${APTFILE_COLOR_OFF} packages ${install_packages[*]}"
     fi
 }
 
@@ -207,7 +209,7 @@ repository() {
     if [[ -d /etc/apt/sources.list.d/ ]]; then
         grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -Fq "$repo" && log_info "${APTFILE_CYAN}[OK]${APTFILE_COLOR_OFF} repository $repo" && return 0
     fi
-    add-apt-repository -y "$repo" >"$TMP_APTFILE_LOGFILE" 2>&1
+    add-apt-repository -y "$repo" > "$TMP_APTFILE_LOGFILE" 2>&1
     [[ $? -eq 0 ]] || log_fail "${APTFILE_RED}[FAIL]${APTFILE_COLOR_OFF} repository $pkg"
     update
     log_info "${APTFILE_GREEN}[NEW]${APTFILE_COLOR_OFF} repository $repo"
@@ -244,8 +246,8 @@ repository_file() {
 
     grep ^ /etc/apt/sources.list /etc/apt/sources.list.d/* | grep -Fq "$repo" && log_info "${APTFILE_CYAN}[OK]${APTFILE_COLOR_OFF} repository $repo" && return 0
 
-    echo "Writing '$repo' to file '$repofile'" >"$TMP_APTFILE_LOGFILE"
-    echo "$repo" >"$repofile" 2>>"$TMP_APTFILE_LOGFILE"
+    echo "Writing '$repo' to file '$repofile'" > "$TMP_APTFILE_LOGFILE"
+    echo "$repo" > "$repofile" 2>> "$TMP_APTFILE_LOGFILE"
     [[ $? -eq 0 ]] || log_fail "${APTFILE_RED}[FAIL]${APTFILE_COLOR_OFF} repository $pkg"
     update
     log_info "${APTFILE_GREEN}[NEW]${APTFILE_COLOR_OFF} repository $repo"
@@ -270,7 +272,7 @@ APTFILE_TMPNAME="$APTFILE_TMPDIR/aptfile.$$"
 APTFILE_OUTPUT="${APTFILE_TMPNAME}.out"
 
 aptfile_preprocess_source() {
-    tail -n +2 "$1" >"$APTFILE_OUTPUT"
+    tail -n +2 "$1" > "$APTFILE_OUTPUT"
     trap "aptfile_cleanup_preprocessed_source" err exit
     trap "aptfile_cleanup_preprocessed_source; exit 1" int
 }
