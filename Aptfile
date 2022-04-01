@@ -8,11 +8,16 @@ package "glow" "https://github.com/charmbracelet/glow/releases/download/v1.4.1/g
 package "grep"
 package "make"
 package "moreutils"
-package "npm"
 package "pastel" "https://github.com/sharkdp/pastel/releases/download/v0.8.1/pastel_0.8.1_amd64.deb"
 package "sed"
+package "shellcheck"
 
-echo "Installing prettier"
+# package "shfmt"
+curl -fsSLo /usr/local/bin/shfmt https://github.com/mvdan/sh/releases/download/v3.4.3/shfmt_v3.4.3_linux_amd64
+chmod +x /usr/local/bin/shfmt
+
+# package "prettier"
+package "npm"
 npm install -g prettier
 
 echo "All packages installed!"
