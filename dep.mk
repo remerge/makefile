@@ -15,20 +15,22 @@ else
 	git clean -fdx
 endif
 
+.PHONY: dep
+dep: ## alias for install
+dep: install
+
 .PHONY: install
 install:: ## prepare environment and install dependencies for all make targets
 ifneq ($(call has-command,brew),)
 	brew bundle --file $(MKF_COMMON)/Brewfile --no-upgrade install
 endif
 
-.PHONY: dep
-dep: install
+.PHONY: up
+up: ## alias for update
+up: update
 
 .PHONY: update
 update:: ## update environment and all dependencies to their latest version(s)
 ifneq ($(call has-command,brew),)
 	brew bundle --file $(MKF_COMMON)/Brewfile install
 endif
-
-.PHONY: up
-up: update
