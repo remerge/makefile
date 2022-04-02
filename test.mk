@@ -1,5 +1,3 @@
-SHELLCHECK = $(call need-command,shellcheck)
-
 .PHONY: lint
 lint:: ## run code format check, code analysis, security scans, etc
 	$(SHFMT) $(SHFMT_ARGS) -d $(SH_FILES)

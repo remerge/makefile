@@ -1,5 +1,7 @@
 tap "homebrew/bundle"
 tap "homebrew/core"
+brew "bat"
+brew "colordiff"
 brew "git"
 brew "glow"
 brew "gnu-sed"
