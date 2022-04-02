@@ -14,3 +14,5 @@ include $(MKF_COMMON)/prepare.mk
 include $(MKF_COMMON)/generate.mk
 include $(MKF_COMMON)/test.mk
 include $(MKF_COMMON)/build.mk
+
+include $(MKF_COMMON)/mkf.mk
