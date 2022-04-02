@@ -23,7 +23,7 @@ dep: install
 install:: ## prepare environment and install dependencies for all make targets
 install:: $(MKF_COMMON)/Aptfile.sh
 ifneq ($(call has-command,apt-get),)
-	@bash $(MKF_COMMON)/Aptfile.sh $(MKF_COMMON)/Aptfile
+	sudo $(MKF_COMMON)/Aptfile.sh $(MKF_COMMON)/Aptfile
 else
 ifneq ($(call has-command,brew),)
 	brew bundle --file $(MKF_COMMON)/Brewfile --no-upgrade install
@@ -37,9 +37,9 @@ up: update
 .PHONY: update
 update:: ## update environment and all dependencies to their latest version(s)
 ifneq ($(call has-command,apt-get),)
-	apt-get -y update
-	apt-get -y dist-upgrade
-	@bash $(MKF_COMMON)/Aptfile.sh $(MKF_COMMON)/Aptfile
+	sudo apt-get -y update
+	sudo apt-get -y dist-upgrade
+	sudo $(MKF_COMMON)/Aptfile.sh $(MKF_COMMON)/Aptfile
 else
 ifneq ($(call has-command,brew),)
 	brew bundle --file $(MKF_COMMON)/Brewfile install

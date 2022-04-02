@@ -1,8 +1,5 @@
 #!/usr/bin/env aptfile
 
-# trigger an apt-get update
-update
-
 package "git"
 package "glow" "https://github.com/charmbracelet/glow/releases/download/v1.4.1/glow_1.4.1_linux_amd64.deb"
 package "grep"
