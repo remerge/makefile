@@ -1,4 +1,4 @@
-ifneq ($(MKF_COMMON),.)
+ifneq ($(MKF_PREFIX),.)
 .git/refs/remotes/makefile:
 	git remote add -f makefile https://github.com/remerge/makefile
 
