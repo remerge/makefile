@@ -14,6 +14,6 @@ Name | File | Description
 EOF
 
 grep -nE '^[a-zA-Z_0-9%-]+:.*?## .*$' "$@" |
-    awk -F: '{ gsub(" ## ",""); printf "%s|%s:%s|%s\n", $3, $1, $2, $4$5 }'
+    awk -F: '{ gsub(" ## ",""); printf "%s|%s|%s\n", $3, $1, $4$5 }'
 
 sed "1,/^${TARGET_HEADING}/d" < "${HELP_FILE}" | sed -n '/^## /,$p'
