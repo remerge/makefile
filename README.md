@@ -19,12 +19,27 @@ $ cat Makefile
 include mkf/common/common.mk
 ```
 
-## Updating Modules
+## Adding Modules
 
-To update the Makefile framework in the current repository:
+Use `make add` to add modules to the Makefile framework for the current project:
 
 ```bash
-make mkf-update
+$ make add MODULE=remerge/example-makefile
+git remote add example-makefile https://github.com/remerge/example-makefile
+git subtree add --squash --prefix mkf/example example-makefile main
+git fetch example-makefile main
+From ssh://github.com/remerge/example-makefile
+ * branch            main       -> FETCH_HEAD
+ * [new branch]      main       -> example-makefile/main
+Added dir 'mkf/example'
+```
+
+## Updating Modules
+
+Use `make update` to update all modules from the Makefile framework:
+
+```bash
+make update
 ```
 
 ## Available Makefile Targets
@@ -45,3 +60,5 @@ make mkf-update
 | lint      | test.mk     | run code format check, code analysis, security scans, etc                                    |
 | test      | test.mk     | run unit and integration tests                                                               |
 | build     | build.mk    | run all build steps and create artifact(s)                                                   |
+| add       | mkf.mk      | add makefile framework module                                                                |
+| update    | mkf.mk      | update all makefile framework modules                                                        |
