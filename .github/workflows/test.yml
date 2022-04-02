@@ -16,3 +16,11 @@ jobs:
       - run: make generate format
       - run: make lint
       - run: git diff --quiet
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: make install
+      - run: make test
+      - run: git diff --quiet

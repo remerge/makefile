@@ -1,5 +1,8 @@
 #!/usr/bin/env aptfile
 
+# update package list
+update
+
 package "git"
 package "glow" "https://github.com/charmbracelet/glow/releases/download/v1.4.1/glow_1.4.1_linux_amd64.deb"
 package "grep"
@@ -11,6 +14,7 @@ package "shellcheck"
 package "shfmt" "http://ftp.de.debian.org/debian/pool/main/s/shfmt/shfmt_3.4.3-1_amd64.deb"
 
 # package "prettier"
+type -P npm || package "npm"
 npm install -g prettier
 
 echo "All packages installed!"

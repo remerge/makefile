@@ -36,8 +36,8 @@ make mkf-update
 | distclean | prepare.mk:6   | remove all artifacts, caches, dependencies, settings and reset branch to remote (DANGEROUS!) |
 | dep       | prepare.mk:19  | alias for install                                                                            |
 | install   | prepare.mk:23  | prepare environment and install dependencies for all make targets                            |
-| up        | prepare.mk:33  | alias for update                                                                             |
-| update    | prepare.mk:37  | update environment and all dependencies to their latest version(s)                           |
+| up        | prepare.mk:34  | alias for update                                                                             |
+| update    | prepare.mk:38  | update environment and all dependencies to their latest version(s)                           |
 | gen       | generate.mk:5  | alias for generate                                                                           |
 | generate  | generate.mk:9  | generate documentation, schemas, etc                                                         |
 | fmt       | generate.mk:13 | alias for format                                                                             |
