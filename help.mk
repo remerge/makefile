@@ -1,12 +1,21 @@
 HELP_FILE ?= README.md
-HELP_GENERATE = $(MKF_COMMON)/help.sh
+HELP_GENERATE = $(MKF_COMMON)/README.sh
+
+.DEFAULT_GOAL := help
 
 .PHONY: help
-help:: ## display this help text
+help::
 help:: $(HELP_FILE)
-	@$(GLOW) $(HELP_FILE)
+ifneq ($(shell command -v glow),)
+	@glow $(HELP_FILE)
+else
+ifneq ($(shell command -v bat),)
+	@bat -p $(HELP_FILE)
+else
+	@cat $(HELP_FILE)
+endif
+endif
 
-generate:: $(HELP_FILE)
 $(HELP_FILE): $(HELP_GENERATE) $(MKF_FILES)
-	@$(HELP_GENERATE) $(HELP_FILE) $(MAKEFILE_LIST) | \
-	$(PRETTIER) --parser markdown | $(SPONGE) $(HELP_FILE)
+	bash $(HELP_GENERATE) $(HELP_FILE) $(MAKEFILE_LIST)
+generate:: $(HELP_FILE)
