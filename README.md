@@ -24,7 +24,7 @@ include mkf/common/common.mk
 Use `make add` to add modules to the Makefile framework for the current project:
 
 ```bash
-$ make add MODULE=remerge/example-makefile
+$ make mkf-add MODULE=remerge/example-makefile
 git remote add example-makefile https://github.com/remerge/example-makefile
 git subtree add --squash --prefix mkf/example example-makefile main
 git fetch example-makefile main
@@ -36,17 +36,16 @@ Added dir 'mkf/example'
 
 ## Updating Modules
 
-Use `make update` to update all modules from the Makefile framework:
+Use `make mkf-update` to update all modules from the Makefile framework:
 
 ```bash
-make update
+make mkf-update
 ```
 
 ## Available Makefile Targets
 
 | Name               | File          | Description                                         |
 | ------------------ | ------------- | --------------------------------------------------- |
-| all                | Makefile      | run make generate check test build                  |
 | clean              | common.mk     | remove build artifacts and caches                   |
 | reset              | common.mk     | reset repository to remote state                    |
 | install            | common.mk     | prepare environment and install dependencies        |
