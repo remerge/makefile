@@ -3,5 +3,5 @@ MKF_COMMON = .
 
 include common.mk
 
-all: ## alias for `make generate format lint test build`
-all: generate format lint test build
+all: ## run make generate check test build
+all: generate check test build

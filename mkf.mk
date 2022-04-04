@@ -7,13 +7,14 @@ $(MKF_COMMON): .git/refs/remotes/makefile
 	git subtree add --squash --prefix $(MKF_COMMON) makefile main
 
 .PHONY: add
-add: ## add makefile framework module
-add: $(MKF_COMMON)
+mkf-add: ## add new makefile framework module
+mkf-add: $(MKF_COMMON)
 	git remote add $(notdir $(MODULE)) https://github.com/$(MODULE)
 	git subtree add --squash --prefix $(MKF_PREFIX)/$(patsubst %-makefile,%,$(notdir $(MODULE))) $(notdir $(MODULE)) main
 
-update:: ## update all makefile framework modules
-update:: $(MKF_COMMON)
+.PHONY: mkf-update
+mkf-update: ## update makefile framework modules
+mkf-update: $(MKF_COMMON)
 	@for m in $(MKF_PREFIX)/*; do \
 		if [[ "$$(basename $${m})" == "common" ]]; then \
 			echo git subtree pull --squash --prefix $${m} makefile main; \
@@ -21,4 +22,5 @@ update:: $(MKF_COMMON)
 			echo git subtree pull --squash --prefix $${m} $${m}-makefile main; \
 		fi \
 	done
+update:: mkf-update
 endif
