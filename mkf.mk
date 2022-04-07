@@ -19,7 +19,7 @@ mkf-update: $(MKF_COMMON)
 		if [[ "$$(basename $${m})" == "common" ]]; then \
 			git subtree pull --squash --prefix $${m} makefile main; \
 		else \
-			git subtree pull --squash --prefix $${m} $${m}-makefile main; \
+			git subtree pull --squash --prefix $${m} $$(basename $${m})-makefile main; \
 		fi \
 	done
 update:: mkf-update
