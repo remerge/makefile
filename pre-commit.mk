@@ -10,11 +10,8 @@ clean:: pre-commit-clean
 .pre-commit-config.yaml: .markdownlint.yaml
 	cp $(MKF_COMMON)/.pre-commit-config.yaml $@
 
-.PHONY: pre-commit-install
-pre-commit-install: ## install pre-commit hook and modules
-pre-commit-install: .pre-commit-config.yaml
+.git/hooks/pre-commit: .pre-commit-config.yaml
 	pre-commit install
-install:: pre-commit-install
 
 .PHONY: pre-commit-update
 pre-commit-update: ## update pre-commit hook and modules
@@ -24,5 +21,6 @@ update:: pre-commit-update
 
 .PHONY: pre-commit-check
 pre-commit-check: ## run pre commit hooks
+pre-commit-check: .git/hooks/pre-commit
 	pre-commit run --all-files
 check:: pre-commit-check
