@@ -17,9 +17,9 @@ mkf-update: ## update makefile framework modules
 mkf-update: $(MKF_COMMON)
 	@for m in $(MKF_PREFIX)/*; do \
 		if [[ "$$(basename $${m})" == "common" ]]; then \
-			echo git subtree pull --squash --prefix $${m} makefile main; \
+			git subtree pull --squash --prefix $${m} makefile main; \
 		else \
-			echo git subtree pull --squash --prefix $${m} $${m}-makefile main; \
+			git subtree pull --squash --prefix $${m} $${m}-makefile main; \
 		fi \
 	done
 update:: mkf-update
