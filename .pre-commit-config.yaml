@@ -53,4 +53,3 @@ repos:
       - id: check-symlinks
       - id: destroyed-symlinks
       - id: forbid-new-submodules
-      - id: no-commit-to-branch

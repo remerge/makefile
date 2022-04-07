@@ -15,8 +15,8 @@ clean:: pre-commit-clean
 
 .PHONY: pre-commit-update
 pre-commit-update: ## update pre-commit hook and modules
+pre-commit-update: .git/hooks/pre-commit
 	pre-commit autoupdate
-	pre-commit install -f
 update:: pre-commit-update
 
 .PHONY: pre-commit-check

@@ -12,11 +12,11 @@ git remote add makefile https://github.com/remerge/makefile
 git subtree add --squash --prefix mkf/common makefile main
 ```
 
-Afterwards make targets can be included in the project:
+Afterwards create the initial Makefile and setup your environment:
 
 ```bash
-$ cat Makefile
-include mkf/common/common.mk
+echo 'include mkf/common/common.mk' > Makefile
+make update generate check
 ```
 
 ## Adding Modules
