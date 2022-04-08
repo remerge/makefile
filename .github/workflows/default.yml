@@ -5,7 +5,7 @@ name: default
   pull_request:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   check:

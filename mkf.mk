@@ -1,9 +1,6 @@
 ifneq ($(MKF_PREFIX),.)
-.git/refs/remotes/makefile:
+$(MKF_COMMON):
 	git remote add -f makefile https://github.com/remerge/makefile
-
-$(MKF_COMMON): .git/refs/remotes/makefile
-	git fetch -a -p makefile
 	git subtree add --squash --prefix $(MKF_COMMON) makefile main
 
 .PHONY: add

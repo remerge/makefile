@@ -16,6 +16,10 @@ Afterwards create the initial Makefile and setup your environment:
 
 ```bash
 echo 'include mkf/common/common.mk' > Makefile
+
+git add Makefile
+git commit -m 'add Makefile'
+
 make update generate check
 ```
 
