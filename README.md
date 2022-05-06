@@ -5,18 +5,14 @@ Makefile framework for all remerge projects.
 ## Getting Started
 
 For a new project that does not use the Makefile framework yet, add this
-repository as a subtree:
+repository as a subtree and create the initial Makefile and setup your
+environment:
 
 ```bash
 git remote add makefile https://github.com/remerge/makefile
 git subtree add --squash --prefix mkf/common makefile main
-```
 
-Afterwards create the initial Makefile and setup your environment:
-
-```bash
 echo 'include mkf/common/common.mk' > Makefile
-
 git add Makefile
 git commit -m 'add Makefile'
 
