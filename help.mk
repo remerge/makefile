@@ -1,5 +1,5 @@
-HELP_FILE ?= README.md
-HELP_GENERATE = $(MKF_COMMON)/README.sh
+HELP_FILE ?= Makefile.md
+HELP_GENERATE = $(MKF_COMMON)/help.sh
 
 .DEFAULT_GOAL := help
 
